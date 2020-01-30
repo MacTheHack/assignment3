@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Assignment 3</string>
+    <string name="slide_to_change_brightness">Slide to change brightness</string>
+    <string name="local_window">Local Window?</string>
+</resources>
