@@ -13,14 +13,20 @@ import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -28,9 +34,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager mSensorManager;
     private boolean mSensorExists, mLocalScreen = false;
     private Switch windowOfSystemSwitch;
+    private Spinner mSpinner;
     private double mSensorBrightness;
     private ContentResolver mContentResolver;
     private Window mWindow;
+    private DataHolder mDataHolder;
+    private HashMap<Integer, int[]> mLuxThresholds;
 
 
     @Override
@@ -41,13 +50,30 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         checkIfSensorExists();
         registerSensor();
         initComponents();
+        mDataHolder = DataHolder.getInstance();
+        populateSpinner();
+        populateHashmap();
 
+
+    }
+
+    private void populateHashmap() {
+        mLuxThresholds = mDataHolder.getLuxThresholds();
+    }
+
+    private void populateSpinner() {
+        String[] values = mDataHolder.getSpinnerArray();
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, values);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
     }
 
 
     private void initComponents() {
         windowOfSystemSwitch = findViewById(R.id.screen_switch);
         windowOfSystemSwitch.setOnCheckedChangeListener(new SwitchListener());
+        mSpinner = findViewById(R.id.spinner_levels);
+        mSpinner.setOnItemSelectedListener((new SpinnerListener()));
         mContentResolver = getContentResolver();
         mWindow = getWindow();
     }
@@ -146,6 +172,40 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+
+    private class SpinnerListener implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            switch (position) {
+                case 0:
+                    Toast.makeText(MainActivity.this, "Level 1 selected", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 1:
+                    Toast.makeText(MainActivity.this, "Level 2 selected", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 2:
+                    Toast.makeText(MainActivity.this, "Level 3 selected", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Toast.makeText(MainActivity.this, "Level 4 selected", Toast.LENGTH_SHORT).show();
+                    break;
+                case 4:
+                    Toast.makeText(MainActivity.this, "Level 5 selected", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    }
 }
 
 
