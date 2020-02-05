@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private ContentResolver mContentResolver;
     private Window mWindow;
     private DataHolder mDataHolder;
-    private HashMap<Integer, int[]> mLuxThresholds;
+    private HashMap<Integer, double[]> mLuxThresholds;
 
 
     @Override
@@ -150,6 +150,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+
+
+
     /**
      * Very small class that simply checks if the user sets the switch to
      * ON or OFF.
@@ -177,24 +180,31 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+            double[] localThresholdArray;
             switch (position) {
+
                 case 0:
-                    Toast.makeText(MainActivity.this, "Level 1 selected", Toast.LENGTH_SHORT).show();
-                    break;
+                    localThresholdArray = mLuxThresholds.get(position);
+                    if (mSensorBrightness < localThresholdArray[0])
+
+                        break;
 
                 case 1:
-                    Toast.makeText(MainActivity.this, "Level 2 selected", Toast.LENGTH_SHORT).show();
+                    localThresholdArray = mLuxThresholds.get(position);
+
                     break;
 
                 case 2:
-                    Toast.makeText(MainActivity.this, "Level 3 selected", Toast.LENGTH_SHORT).show();
+                    localThresholdArray = mLuxThresholds.get(position);
+
                     break;
                 case 3:
-                    Toast.makeText(MainActivity.this, "Level 4 selected", Toast.LENGTH_SHORT).show();
+                    localThresholdArray = mLuxThresholds.get(position);
+
                     break;
                 case 4:
-                    Toast.makeText(MainActivity.this, "Level 5 selected", Toast.LENGTH_SHORT).show();
+                    localThresholdArray = mLuxThresholds.get(position);
+
                     break;
             }
 

@@ -6,7 +6,7 @@ public class DataHolder {
 
     public static DataHolder instance = null;
     private static String[] spinnerArray;
-    private static HashMap<Integer, int[]> luxThresholds;
+    private static HashMap<Integer, double[]> luxThresholds;
 
     public static DataHolder getInstance() {
 
@@ -19,7 +19,7 @@ public class DataHolder {
         return instance;
     }
 
-    public HashMap<Integer, int[]> getLuxThresholds() {
+    public HashMap<Integer, double[]> getLuxThresholds() {
         return luxThresholds;
     }
 
@@ -28,11 +28,11 @@ public class DataHolder {
     }
 
     private static void populateHashmap() {
-        luxThresholds.put(0, new int[]{100, 300});
-        luxThresholds.put(1, new int[]{300, 1000});
-        luxThresholds.put(2, new int[]{1000, 2000});
-        luxThresholds.put(3, new int[]{2000, 3000});
-        luxThresholds.put(4, new int[]{3000, 5000});
+        luxThresholds.put(0, new double[]{100, 300});
+        luxThresholds.put(1, new double[]{300, 1000});
+        luxThresholds.put(2, new double[]{1000, 2000});
+        luxThresholds.put(3, new double[]{2000, 3000});
+        luxThresholds.put(4, new double[]{3000, 5000});
     }
 
     private static String[] getSpinnerValues() {
